@@ -9,6 +9,8 @@ export default class ImRubberbandPolygon extends ToolLike {
   constructor(anchor, g, config, env) {
     super(g, config, env);
 
+    this.displayHandleOnClick = this.config.displayHandleOnClick || false;
+
     // Needed later to construct the Selection
     this.env = env;
 
@@ -68,10 +70,16 @@ export default class ImRubberbandPolygon extends ToolLike {
       const [x, y] = this.mousepos;
       const lastCorner = this.points[this.points.length - 1];
       const dist = Math.pow(x - lastCorner[0], 2) + Math.pow(y - lastCorner[1], 2);
-      
+
       if (dist > 4) {
         this.points = [...this.points, this.mousepos];
-        this.setPoints(this.points);   
+        this.setPoints(this.points);        
+
+        if (this.displayHandleOnClick) {
+          let handle = this.drawHandle(x, y); 
+          this.selection.appendChild(handle);
+        }
+
         this.mask.redraw();
       }
     }
