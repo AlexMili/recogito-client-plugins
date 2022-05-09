@@ -10,6 +10,7 @@ export default class ImRubberbandPolygon extends ToolLike {
     super(g, config, env);
 
     this.displayHandleOnClick = this.config.displayHandleOnClick || false;
+    this.alwaysDisplayClosingHandle = this.config.alwaysDisplayClosingHandle || false;
 
     // Needed later to construct the Selection
     this.env = env;
@@ -41,7 +42,9 @@ export default class ImRubberbandPolygon extends ToolLike {
     this.rubberband.setAttribute('class', 'a9s-rubberband');
 
     this.closeHandle = this.drawHandle(anchor[0], anchor[1], 'a9s-handle-start');
-    this.closeHandle.style.display = 'none';
+    if (!this.alwaysDisplayClosingHandle) {
+      this.closeHandle.style.display = 'none';
+    }
 
     this.setPoints(this.points);
 
@@ -103,7 +106,7 @@ export default class ImRubberbandPolygon extends ToolLike {
     const d = this.getDistanceToStart();
 
     // Display close handle if distance < 40px
-    if (d < 40) {
+    if (this.alwaysDisplayClosingHandle || d < 40) {
       this.closeHandle.style.display = null;
     } else { 
       this.closeHandle.style.display = 'none';
