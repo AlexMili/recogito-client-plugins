@@ -38,7 +38,7 @@ export default class ImRubberbandPolygon extends ToolLike {
     this.rubberband = document.createElementNS(SVG_NAMESPACE, 'polygon');
     this.rubberband.setAttribute('class', 'a9s-rubberband');
 
-    this.closeHandle = this.drawHandle(anchor[0], anchor[1]);
+    this.closeHandle = this.drawHandle(anchor[0], anchor[1], 'a9s-handle-start');
     this.closeHandle.style.display = 'none';
 
     this.setPoints(this.points);
