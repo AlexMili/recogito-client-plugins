@@ -154,7 +154,7 @@ export default class ImRubberbandPolygon extends ToolLike {
     const inner = this.closeHandle.querySelector('.a9s-handle-inner');
     const outer = this.closeHandle.querySelector('.a9s-handle-outer');
 
-    const radius = scale * (this.config.handleRadius || 6);
+    const radius = scale * this.getRadius();
 
     inner.setAttribute('r', radius);
     outer.setAttribute('r', radius);
